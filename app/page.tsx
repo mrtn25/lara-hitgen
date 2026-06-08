@@ -37,7 +37,7 @@ function UniCard({
     <div
       className={`rounded-2xl p-6 border font-sans flex flex-col gap-3 ${
         highlight
-          ? "bg-white text-stone-700 border-stone-900 border-2"
+          ? "bg-white text-stone-700 border-stone-300 border-2"
           : "bg-white text-stone-700 border-stone-100"
       }`}
     >
@@ -90,9 +90,12 @@ export default function Home() {
               href="https://www.linkedin.com/in/lara-h-btu/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-stone-900 transition-colors"
+              className="hover:text-stone-900 transition-colors flex items-center"
+              aria-label="LinkedIn"
             >
-              LinkedIn
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -346,7 +349,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <UniCard
               stage="Bachelor"
-              degree="B.Sc. Management and Entrepreneurship"
+              degree="B.Sc. International Business Administration and Entrepreneurship"
               name="Leuphana University Luneburg"
               logoKey="leuphana"
               period="2018 to 2022"
@@ -428,17 +431,18 @@ export default function Home() {
               </div>
 
               <div className="bg-[#faf9f6] rounded-2xl p-6 border border-stone-100">
-                <p className="text-xs uppercase tracking-widest text-stone-400 mb-4 font-sans">Partner Networks</p>
-                <div className="flex flex-wrap gap-4 items-center">
+                <p className="text-xs uppercase tracking-widest text-stone-400 mb-4 font-sans">Including interview partners from</p>
+                <div className="grid grid-cols-2 gap-4 items-center">
                   {PARTNER_LOGOS.map(({ src, alt }) => (
-                    <Image
-                      key={alt}
-                      src={src}
-                      alt={alt}
-                      width={100}
-                      height={36}
-                      className="object-contain max-h-8 w-auto"
-                    />
+                    <div key={alt} className="flex items-center justify-center h-10">
+                      <Image
+                        src={src}
+                        alt={alt}
+                        width={110}
+                        height={40}
+                        className="object-contain w-full max-h-8"
+                      />
+                    </div>
                   ))}
                 </div>
               </div>
