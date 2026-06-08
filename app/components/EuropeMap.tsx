@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 
 // W/H ≈ 0.78 matches Mercator ratio for lon -14..38, lat 33..72
-const W = 450;
-const H = 580;
+// Cut off above ~58°N (just above Denmark), recalculate Mercator ratio
+// lon -14..38 (52°), lat 33..58 → W/H ≈ 52°/Mercator(33→58) ≈ 1.05
+const W = 500;
+const H = 480;
 
 function project(lon: number, lat: number): [number, number] {
   const lonMin = -14, lonMax = 38;
-  const latMin = 33, latMax = 72;
+  const latMin = 33, latMax = 58;
   // slight vertical stretch to compensate for conic distortion
   const x = ((lon - lonMin) / (lonMax - lonMin)) * W;
   const latAdj = Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
@@ -144,7 +146,7 @@ export default function EuropeMap() {
         })}
 
         {/* Legend */}
-        <g transform={`translate(${W - 165}, ${H - 72})`}>
+        <g transform={`translate(${W - 162}, ${H - 72})`}>
           <rect width={160} height={64} rx={8} fill="white" opacity={0.9} />
           <circle cx={16} cy={18} r={5} fill="#2563eb" opacity={0.82} />
           <text x={28} y={22} fontSize="11" fill="#374151" style={{ fontFamily: "var(--font-inter), Inter, sans-serif" }}>Portugal (60+)</text>
