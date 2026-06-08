@@ -9,11 +9,13 @@ const LOGOS: Record<string, { src: string; ext: string }> = {
   nova:     { src: "/logos/nova.png",     ext: "png" },
 };
 
+// maxH in px: tuned per logo based on source image aspect ratio so they look visually equal
+// YC 1280×721 (ratio 1.78) → needs more height; EWOR 439×115 (3.82) → less height; etc.
 const PARTNER_LOGOS = [
-  { key: "yc",           src: "/logos/yc.png",           alt: "Y Combinator" },
-  { key: "ewor",         src: "/logos/ewor.png",          alt: "EWOR" },
-  { key: "techstars",    src: "/logos/techstars.png",     alt: "Techstars" },
-  { key: "founders-inc", src: "/logos/founders-inc.png",  alt: "Founders, Inc." },
+  { key: "yc",           src: "/logos/yc.png",           alt: "Y Combinator",  maxH: 44 },
+  { key: "ewor",         src: "/logos/ewor.png",          alt: "EWOR",          maxH: 26 },
+  { key: "techstars",    src: "/logos/techstars.png",     alt: "Techstars",     maxH: 30 },
+  { key: "founders-inc", src: "/logos/founders-inc.png",  alt: "Founders, Inc.", maxH: 20 },
 ];
 
 function UniCard({
@@ -442,14 +444,15 @@ export default function Home() {
               <div className="bg-[#faf9f6] rounded-2xl p-6 border border-stone-100">
                 <p className="text-xs uppercase tracking-widest text-stone-400 mb-4 font-sans">Including interview partners from</p>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-5">
-                  {PARTNER_LOGOS.map(({ src, alt }) => (
-                    <div key={alt} className="flex items-center justify-center bg-white rounded-lg p-3 h-14 border border-stone-100">
+                  {PARTNER_LOGOS.map(({ src, alt, maxH }) => (
+                    <div key={alt} className="flex items-center justify-center bg-white rounded-lg p-3 h-16 border border-stone-100">
                       <Image
                         src={src}
                         alt={alt}
                         width={120}
-                        height={40}
-                        className="object-contain max-h-7 w-full"
+                        height={maxH}
+                        className="object-contain w-auto"
+                        style={{ maxHeight: maxH, maxWidth: "100%" }}
                       />
                     </div>
                   ))}
