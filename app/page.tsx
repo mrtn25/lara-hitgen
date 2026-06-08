@@ -4,6 +4,7 @@ import EuropeMap from "./components/EuropeMap";
 const LOGOS: Record<string, { src: string; ext: string }> = {
   leuphana: { src: "/logos/leuphana.jpg", ext: "jpg" },
   whu:      { src: "/logos/whu.png",      ext: "png" },
+  uq:       { src: "/logos/uq.png",       ext: "png" },
   btu:      { src: "/logos/btu.svg",      ext: "svg" },
   nova:     { src: "/logos/nova.png",     ext: "png" },
 };
@@ -81,11 +82,11 @@ export default function Home() {
           <span className="text-sm font-medium tracking-wide text-stone-600 font-sans">
             Lara Hitgen
           </span>
-          <div className="flex gap-6 text-sm text-stone-500 font-sans">
-            <a href="#about" className="hover:text-stone-900 transition-colors">About</a>
-            <a href="#publications" className="hover:text-stone-900 transition-colors">Research</a>
-            <a href="#universities" className="hover:text-stone-900 transition-colors">Affiliations</a>
-            <a href="#contact" className="hover:text-stone-900 transition-colors">Contact</a>
+          <div className="flex gap-5 text-sm text-stone-500 font-sans items-center">
+            <a href="#about" className="hidden sm:block hover:text-stone-900 transition-colors">About</a>
+            <a href="#publications" className="hidden sm:block hover:text-stone-900 transition-colors">Research</a>
+            <a href="#universities" className="hidden md:block hover:text-stone-900 transition-colors">Affiliations</a>
+            <a href="#contact" className="hidden sm:block hover:text-stone-900 transition-colors">Contact</a>
             <a
               href="https://www.linkedin.com/in/lara-h-btu/"
               target="_blank"
@@ -102,9 +103,9 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6">
+      <section className="pt-28 pb-14 px-6 md:pt-32 md:pb-20">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row gap-12 items-start">
+          <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-12 items-start">
             <div className="flex-1 max-w-2xl">
               <p className="text-xs uppercase tracking-widest text-stone-400 mb-4 font-sans">
                 PhD Researcher · BTU Cottbus-Senftenberg
@@ -138,14 +139,14 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 w-full md:w-auto">
               <Image
                 src="/profile.png"
                 alt="Lara Hitgen"
                 width={260}
                 height={320}
-                className="rounded-2xl object-cover object-top shadow-sm"
-                style={{ aspectRatio: "4/5" }}
+                className="rounded-2xl object-cover object-top shadow-sm w-full md:w-[260px]"
+                style={{ aspectRatio: "4/5", maxHeight: "320px", objectFit: "cover" }}
               />
             </div>
           </div>
@@ -164,7 +165,7 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="py-24 px-6">
+      <section id="about" className="py-16 md:py-24 px-6">
         <div className="max-w-5xl mx-auto">
           <h2
             className="text-3xl text-stone-900 mb-12"
@@ -217,7 +218,7 @@ export default function Home() {
       </section>
 
       {/* Publications */}
-      <section id="publications" className="py-24 px-6 bg-white">
+      <section id="publications" className="py-16 md:py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <h2
             className="text-3xl text-stone-900 mb-3"
@@ -336,7 +337,7 @@ export default function Home() {
       </section>
 
       {/* Universities */}
-      <section id="universities" className="py-24 px-6">
+      <section id="universities" className="py-16 md:py-24 px-6">
         <div className="max-w-5xl mx-auto">
           <h2
             className="text-3xl text-stone-900 mb-3"
@@ -346,7 +347,7 @@ export default function Home() {
           </h2>
           <p className="text-stone-500 font-sans text-sm mb-12">Education and institutional affiliations</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             <UniCard
               stage="Bachelor"
               degree="B.Sc. International Business Administration and Entrepreneurship"
@@ -361,6 +362,14 @@ export default function Home() {
               logoKey="whu"
               period="2022 to 2024"
               note="Grade: 1.2"
+            />
+            <UniCard
+              stage="Exchange"
+              degree="Exchange Semester, Entrepreneurship and Innovation"
+              name="The University of Queensland"
+              logoKey="uq"
+              period="Jul to Nov 2023"
+              note="Grade: 6.5/7"
             />
             <UniCard
               stage="PhD"
@@ -384,7 +393,7 @@ export default function Home() {
       </section>
 
       {/* Map + Interview Partners */}
-      <section className="py-24 px-6 bg-white">
+      <section className="py-16 md:py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <h2
             className="text-3xl text-stone-900 mb-3"
@@ -452,10 +461,10 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24 px-6 bg-stone-900 text-white">
+      <section id="contact" className="py-16 md:py-24 px-6 bg-stone-900 text-white">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col md:flex-row gap-12 items-center">
-            <div className="flex-shrink-0">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+            <div className="flex-shrink-0 w-40 md:w-auto">
               <Image
                 src="/profile.png"
                 alt="Lara Hitgen"
