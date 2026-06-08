@@ -77,8 +77,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#faf9f6] text-[#1c1917]">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#faf9f6]/90 backdrop-blur-sm border-b border-stone-200">
-        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#faf9f6]/90 backdrop-blur-sm border-b border-stone-200 px-6">
+        <div className="max-w-5xl mx-auto h-14 flex items-center justify-between">
           <span className="text-sm font-medium tracking-wide text-stone-600 font-sans">
             Lara Hitgen
           </span>
@@ -441,15 +441,15 @@ export default function Home() {
 
               <div className="bg-[#faf9f6] rounded-2xl p-6 border border-stone-100">
                 <p className="text-xs uppercase tracking-widest text-stone-400 mb-4 font-sans">Including interview partners from</p>
-                <div className="grid grid-cols-2 gap-4 items-center">
+                <div className="grid grid-cols-2 gap-x-6 gap-y-5">
                   {PARTNER_LOGOS.map(({ src, alt }) => (
-                    <div key={alt} className="flex items-center justify-center h-10">
+                    <div key={alt} className="flex items-center justify-center bg-white rounded-lg p-3 h-14 border border-stone-100">
                       <Image
                         src={src}
                         alt={alt}
-                        width={110}
+                        width={120}
                         height={40}
-                        className="object-contain w-full max-h-8"
+                        className="object-contain max-h-7 w-full"
                       />
                     </div>
                   ))}
