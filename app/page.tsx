@@ -1,16 +1,19 @@
 import Image from "next/image";
 import EuropeMap from "./components/EuropeMap";
 
-// Detect if a logo file exists — we use a flag per uni
-// Logos should be placed in /public/logos/<key>.png (or .svg)
-const LOGOS: Record<string, string> = {
-  leuphana: "/logos/leuphana.png",
-  whu: "/logos/whu.png",
-  btu: "/logos/btu.png",
-  nova: "/logos/nova.png",
-  yc: "/logos/yc.png",
-  ewor: "/logos/ewor.png",
+const LOGOS: Record<string, { src: string; ext: string }> = {
+  leuphana: { src: "/logos/leuphana.jpg", ext: "jpg" },
+  whu:      { src: "/logos/whu.png",      ext: "png" },
+  btu:      { src: "/logos/btu.svg",      ext: "svg" },
+  nova:     { src: "/logos/nova.png",     ext: "png" },
 };
+
+const PARTNER_LOGOS = [
+  { key: "yc",           src: "/logos/yc.png",           alt: "Y Combinator" },
+  { key: "ewor",         src: "/logos/ewor.png",          alt: "EWOR" },
+  { key: "techstars",    src: "/logos/techstars.png",     alt: "Techstars" },
+  { key: "founders-inc", src: "/logos/founders-inc.png",  alt: "Founders, Inc." },
+];
 
 function UniCard({
   stage,
@@ -29,6 +32,7 @@ function UniCard({
   note?: string;
   highlight?: boolean;
 }) {
+  const logo = LOGOS[logoKey];
   return (
     <div
       className={`rounded-2xl p-6 border font-sans flex flex-col gap-3 ${
@@ -38,9 +42,9 @@ function UniCard({
       }`}
     >
       <div className="h-10 flex items-center">
-        {LOGOS[logoKey] ? (
+        {logo ? (
           <Image
-            src={LOGOS[logoKey]}
+            src={logo.src}
             alt={name}
             width={120}
             height={40}
@@ -74,9 +78,18 @@ export default function Home() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#faf9f6]/90 backdrop-blur-sm border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <span className="text-sm font-medium tracking-wide text-stone-500 uppercase font-sans">
-            Lara Hitgen
-          </span>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/profile.png"
+              alt="Lara Hitgen"
+              width={32}
+              height={32}
+              className="rounded-full object-cover object-top"
+            />
+            <span className="text-sm font-medium tracking-wide text-stone-600 font-sans">
+              Lara Hitgen
+            </span>
+          </div>
           <div className="flex gap-6 text-sm text-stone-500 font-sans">
             <a href="#about" className="hover:text-stone-900 transition-colors">About</a>
             <a href="#publications" className="hover:text-stone-900 transition-colors">Research</a>
@@ -89,37 +102,49 @@ export default function Home() {
       {/* Hero */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-widest text-stone-400 mb-4 font-sans">
-              PhD Researcher · BTU Cottbus-Senftenberg
-            </p>
-            <h1
-              className="text-5xl sm:text-6xl leading-tight tracking-tight text-stone-900 mb-6"
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-            >
-              Lara Hitgen
-            </h1>
-            <p className="text-xl text-stone-600 leading-relaxed mb-8 font-sans">
-              Democratizing fundraising — one network at a time.
-            </p>
-            <p className="text-base text-stone-500 leading-relaxed max-w-xl font-sans">
-              I study how gender shapes entrepreneurs&apos; access to angel and venture capital
-              through networking. My research reveals why the same strategy yields different
-              outcomes for women and men — and what we can do about it.
-            </p>
-            <div className="mt-10 flex gap-4 flex-wrap">
-              <a
-                href="#publications"
-                className="px-5 py-2.5 bg-stone-900 text-white text-sm rounded-full hover:bg-stone-700 transition-colors font-sans"
+          <div className="flex flex-col md:flex-row gap-12 items-start">
+            <div className="flex-1 max-w-2xl">
+              <p className="text-xs uppercase tracking-widest text-stone-400 mb-4 font-sans">
+                PhD Researcher · BTU Cottbus-Senftenberg
+              </p>
+              <h1
+                className="text-5xl sm:text-6xl leading-tight tracking-tight text-stone-900 mb-6"
+                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
               >
-                View Research
-              </a>
-              <a
-                href="#contact"
-                className="px-5 py-2.5 border border-stone-300 text-stone-700 text-sm rounded-full hover:border-stone-500 transition-colors font-sans"
-              >
-                Get in Touch
-              </a>
+                Lara Hitgen
+              </h1>
+              <p className="text-xl text-stone-600 leading-relaxed mb-6 font-sans">
+                Democratizing fundraising, one network at a time.
+              </p>
+              <p className="text-base text-stone-500 leading-relaxed max-w-xl font-sans">
+                I study how gender shapes access to angel and venture capital through networking.
+                My research shows why the same strategy yields different outcomes for women and men,
+                and what that means for how we build the next generation of founders.
+              </p>
+              <div className="mt-10 flex gap-4 flex-wrap">
+                <a
+                  href="#publications"
+                  className="px-5 py-2.5 bg-stone-900 text-white text-sm rounded-full hover:bg-stone-700 transition-colors font-sans"
+                >
+                  View Research
+                </a>
+                <a
+                  href="#contact"
+                  className="px-5 py-2.5 border border-stone-300 text-stone-700 text-sm rounded-full hover:border-stone-500 transition-colors font-sans"
+                >
+                  Get in Touch
+                </a>
+              </div>
+            </div>
+            <div className="flex-shrink-0">
+              <Image
+                src="/profile.png"
+                alt="Lara Hitgen"
+                width={260}
+                height={320}
+                className="rounded-2xl object-cover object-top shadow-sm"
+                style={{ aspectRatio: "4/5" }}
+              />
             </div>
           </div>
         </div>
@@ -131,7 +156,7 @@ export default function Home() {
           <span className="text-amber-400 text-lg">★</span>
           <p className="text-sm font-sans text-stone-200">
             <span className="font-semibold text-white">FGF Best Entrepreneurship Research Newcomer Award 2025</span>
-            {" "}— for research on networking and gendered access to funding
+            {" "}for research on networking and gendered access to funding
           </p>
         </div>
       </section>
@@ -150,24 +175,23 @@ export default function Home() {
               <p>
                 I am a PhD student at the <strong className="text-stone-800">Chair of General Business
                 Administration (especially Investment and Financing)</strong> at BTU Cottbus-Senftenberg,
-                where I work under Prof. Dr. Katharina Scheidgen.
+                working under Prof. Dr. Katharina Scheidgen.
               </p>
               <p>
-                My research investigates how different networking strategies — <em>serendipitous</em>,{" "}
-                <em>calculated</em>, and <em>trusted</em> — shape entrepreneurs&apos; access to angel
-                and venture capital. A core thread through my work is understanding why identical
-                strategies produce systematically unequal outcomes for women and men.
+                My work looks at how serendipitous, calculated, and trusted networking strategies
+                shape access to angel and venture capital. A central question running through my
+                research is why the same strategy produces unequal outcomes for women and men.
               </p>
               <p>
-                I use qualitative comparative case study methods, drawing on 52 case studies and
-                conducting international fieldwork, including a longitudinal project in Portugal.
+                I use qualitative comparative case study methods across 52 cases, and I conduct
+                international fieldwork, including a longitudinal project in Portugal.
               </p>
             </div>
             <div className="space-y-4">
               <div className="bg-white rounded-2xl p-6 border border-stone-100 shadow-sm">
                 <p className="text-xs uppercase tracking-widest text-stone-400 mb-2 font-sans">Research Focus</p>
                 <p className="text-stone-700 font-sans text-sm leading-relaxed">
-                  Gender &amp; entrepreneurial networking · Angel &amp; venture capital access ·
+                  Gender and entrepreneurial networking · Angel and VC access ·
                   Qualitative comparative case study · Fundraising inequality · AI in fundraising
                 </p>
               </div>
@@ -181,8 +205,8 @@ export default function Home() {
               <div className="bg-white rounded-2xl p-6 border border-stone-100 shadow-sm">
                 <p className="text-xs uppercase tracking-widest text-stone-400 mb-2 font-sans">Interview Partners</p>
                 <p className="text-stone-700 font-sans text-sm leading-relaxed">
-                  Top-tier founders and VCs across Europe — including alumni of{" "}
-                  <strong>EWOR</strong>, <strong>Y&nbsp;Combinator</strong>, and unicorn-stage companies
+                  Top-tier founders and VCs across Europe, including alumni of{" "}
+                  <strong>EWOR</strong>, <strong>Y Combinator</strong>, and unicorn-stage companies
                 </p>
               </div>
             </div>
@@ -190,7 +214,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Publications / Research */}
+      {/* Publications */}
       <section id="publications" className="py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <h2
@@ -202,29 +226,27 @@ export default function Home() {
           <p className="text-stone-500 font-sans text-sm mb-12">Working papers, awards, and ongoing studies</p>
 
           <div className="space-y-6">
-            {/* Paper 1 — Under Review + Award */}
+            {/* Paper 1: Award + Under Review */}
             <div className="bg-[#faf9f6] rounded-2xl p-8 border border-stone-100">
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-1">
-                <div className="flex flex-wrap gap-2 items-center">
-                  <span className="inline-flex items-center gap-1.5 text-xs bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-3 py-1 font-sans">
-                    <span>★</span> FGF Award 2025
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-xs bg-blue-50 text-blue-600 border border-blue-200 rounded-full px-3 py-1 font-sans">
-                    Under Review
-                  </span>
-                </div>
+              <div className="flex flex-wrap gap-2 items-center mb-4">
+                <span className="inline-flex items-center gap-1.5 text-xs bg-amber-50 text-amber-700 border border-amber-200 rounded-full px-3 py-1 font-sans">
+                  <span>★</span> FGF Award 2025
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-xs bg-blue-50 text-blue-600 border border-blue-200 rounded-full px-3 py-1 font-sans">
+                  Under Review
+                </span>
               </div>
-              <h3 className="text-lg font-semibold text-stone-900 font-sans mt-3 mb-1">
+              <h3 className="text-lg font-semibold text-stone-900 font-sans mb-1">
                 The role of gender in entrepreneurs&apos; investor networking strategies
               </h3>
-              <p className="text-xs text-stone-400 font-sans mb-3">
-                Co-Authors: Scheidgen, K. &amp; Vongswasdi, P.
+              <p className="text-xs text-stone-400 font-sans mb-4">
+                Co-Authors: Scheidgen, K. and Vongswasdi, P.
               </p>
-              <p className="text-stone-500 font-sans text-sm leading-relaxed mb-4">
-                Investigates how serendipitous, calculated, and trusted networking strategies
-                differentially shape access to angel and VC funding — and why women face structural
-                disadvantages even when deploying the same strategies as men. Presented at multiple
-                international conferences and currently under journal review.
+              <p className="text-stone-500 font-sans text-sm leading-relaxed mb-5">
+                How do serendipitous, calculated, and trusted networking strategies shape access to
+                angel and VC funding, and why do women face structural disadvantages even when using
+                the same strategies as men? This paper, presented at multiple international
+                conferences, is currently under journal review.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a
@@ -233,7 +255,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-50 text-amber-700 border border-amber-200 text-xs font-semibold rounded-full hover:bg-amber-100 transition-colors font-sans"
                 >
-                  ★ FGF Award Page →
+                  ★ FGF Award Page
                 </a>
                 <a
                   href="https://journals.aom.org/doi/10.5465/AMPROC.2025.20934abstract"
@@ -241,14 +263,14 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 bg-stone-100 text-stone-600 border border-stone-200 text-xs font-semibold rounded-full hover:bg-stone-200 transition-colors font-sans"
                 >
-                  AOM 2025 Abstract →
+                  AOM 2025 Abstract
                 </a>
               </div>
             </div>
 
-            {/* Paper 1b — G-Forum version */}
+            {/* Paper 2: G-Forum */}
             <div className="bg-[#faf9f6] rounded-2xl p-8 border border-stone-100">
-              <div className="flex flex-wrap gap-2 items-center mb-3">
+              <div className="flex flex-wrap gap-2 items-center mb-4">
                 <span className="inline-flex items-center gap-1.5 text-xs bg-stone-100 text-stone-500 border border-stone-200 rounded-full px-3 py-1 font-sans">
                   Conference Paper
                 </span>
@@ -257,17 +279,17 @@ export default function Home() {
                 Reinforcing (dis)advantage in entrepreneurs&apos; networking strategies: Gender differences in efficiently networking with investors
               </h3>
               <p className="text-xs text-stone-400 font-sans mb-3">
-                Co-Authors: Scheidgen, K. &amp; Vongswasdi, P.
+                Co-Authors: Scheidgen, K. and Vongswasdi, P.
               </p>
               <p className="text-stone-500 font-sans text-sm leading-relaxed">
-                28. Interdisziplinäre Jahreskonferenz zu Entrepreneurship, Innovation und Mittelstand
-                (G-Forum) — Stuttgart, 17.–19. September 2025
+                28. Interdisziplinare Jahreskonferenz zu Entrepreneurship, Innovation und Mittelstand
+                (G-Forum), Stuttgart, 17. to 19. September 2025
               </p>
             </div>
 
-            {/* Paper 2 — AOM */}
+            {/* Paper 3: AOM */}
             <div className="bg-[#faf9f6] rounded-2xl p-8 border border-stone-100">
-              <div className="flex flex-wrap gap-2 items-center mb-3">
+              <div className="flex flex-wrap gap-2 items-center mb-4">
                 <span className="inline-flex items-center gap-1.5 text-xs bg-stone-100 text-stone-500 border border-stone-200 rounded-full px-3 py-1 font-sans">
                   Conference Paper
                 </span>
@@ -276,11 +298,11 @@ export default function Home() {
                 Whom You Know Beats Who You Are: Gendered (Dis-)Advantages in Entrepreneurs&apos; Networking
               </h3>
               <p className="text-xs text-stone-400 font-sans mb-3">
-                Co-Authors: Scheidgen, K. &amp; Kraft, P.
+                Co-Authors: Scheidgen, K. and Kraft, P.
               </p>
               <p className="text-stone-500 font-sans text-sm leading-relaxed mb-4">
-                The 85th Annual Meeting of the Academy of Management (AOM 2025) — Copenhagen, Denmark,
-                25.–29. July 2025
+                The 85th Annual Meeting of the Academy of Management (AOM 2025), Copenhagen, Denmark,
+                25. to 29. July 2025
               </p>
               <a
                 href="https://journals.aom.org/doi/10.5465/AMPROC.2025.20934abstract"
@@ -288,13 +310,13 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-2 bg-stone-100 text-stone-600 border border-stone-200 text-xs font-semibold rounded-full hover:bg-stone-200 transition-colors font-sans"
               >
-                AOM Proceedings →
+                AOM Proceedings
               </a>
             </div>
 
-            {/* Paper 3 — AI in Fundraising */}
+            {/* Paper 4: AI in Fundraising */}
             <div className="bg-[#faf9f6] rounded-2xl p-8 border border-stone-100">
-              <div className="flex flex-wrap gap-2 items-center mb-3">
+              <div className="flex flex-wrap gap-2 items-center mb-4">
                 <span className="inline-flex items-center gap-1.5 text-xs bg-violet-50 text-violet-600 border border-violet-200 rounded-full px-3 py-1 font-sans">
                   In Progress
                 </span>
@@ -303,9 +325,8 @@ export default function Home() {
                 AI in Fundraising
               </h3>
               <p className="text-stone-500 font-sans text-sm leading-relaxed">
-                Third study in the dissertation series. Explores the role of artificial intelligence
-                tools in entrepreneurial fundraising — how founders leverage AI to navigate investor
-                networks, and the implications for access inequality.
+                Third study in the dissertation series. Looks at how founders use AI tools to
+                navigate investor networks and what that means for who gets funded.
               </p>
             </div>
           </div>
@@ -326,24 +347,24 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <UniCard
               stage="Bachelor"
-              degree="B.Sc. Management & Entrepreneurship"
-              name="Leuphana University Lüneburg"
+              degree="B.Sc. Management and Entrepreneurship"
+              name="Leuphana University Luneburg"
               logoKey="leuphana"
-              period="2018–2021"
+              period="2018 to 2021"
             />
             <UniCard
               stage="Master"
               degree="M.Sc. Entrepreneurship"
-              name="WHU – Otto Beisheim School of Management"
+              name="WHU Otto Beisheim School of Management"
               logoKey="whu"
-              period="2021–2023"
+              period="2021 to 2023"
             />
             <UniCard
               stage="PhD"
               degree="Dr. rer. oec. (ongoing)"
               name="BTU Cottbus-Senftenberg"
               logoKey="btu"
-              period="2023–present"
+              period="2023 to present"
               note="Chair of Investment and Financing · Supervisor: Prof. Dr. Katharina Scheidgen"
               highlight
             />
@@ -359,51 +380,66 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interview Partners Map */}
+      {/* Map + Interview Partners */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <h2
             className="text-3xl text-stone-900 mb-3"
             style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
           >
-            Fieldwork &amp; Interview Partners
+            Fieldwork and Interview Partners
           </h2>
           <p className="text-stone-500 font-sans text-sm mb-10">
-            80+ in-depth interviews with top-tier founders and investors across Europe
+            80+ in-depth interviews with founders and investors across Europe
           </p>
 
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div>
-              <EuropeMap />
-            </div>
-            <div className="space-y-6">
-              <div className="bg-[#faf9f6] rounded-2xl p-6 border border-stone-100">
-                <p className="text-xs uppercase tracking-widest text-stone-400 mb-3 font-sans">Partner Networks</p>
-                <div className="flex flex-wrap gap-2">
-                  {["EWOR", "Y Combinator", "Unicorn Founders", "European Angel Investors", "Venture Capital Firms"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1.5 bg-white border border-stone-200 text-stone-600 text-xs rounded-full font-sans"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4 mb-12">
+            {[
+              { value: "5+", label: "Unicorn Founders" },
+              { value: "30+", label: "General Partners" },
+              { value: "40+", label: "Analysts" },
+            ].map(({ value, label }) => (
+              <div key={label} className="bg-[#faf9f6] rounded-2xl p-6 border border-stone-100 text-center font-sans">
+                <p className="text-3xl font-bold text-stone-900 mb-1" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>{value}</p>
+                <p className="text-xs text-stone-500 uppercase tracking-widest">{label}</p>
               </div>
+            ))}
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 items-start">
+            <EuropeMap />
+            <div className="space-y-6">
               <div className="space-y-3">
                 <div className="flex items-start gap-3 font-sans">
-                  <span className="mt-1 w-3 h-3 rounded-full bg-blue-600 flex-shrink-0" />
+                  <span className="mt-1.5 w-3 h-3 rounded-full bg-blue-600 flex-shrink-0" />
                   <div>
-                    <p className="text-sm font-semibold text-stone-800">Portugal — ≈60 interviews</p>
+                    <p className="text-sm font-semibold text-stone-800">Portugal, 60+ interviews</p>
                     <p className="text-xs text-stone-500">Concentrated in Lisbon · Longitudinal fieldwork at NOVA</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 font-sans">
-                  <span className="mt-1 w-3 h-3 rounded-full bg-stone-800 flex-shrink-0" />
+                  <span className="mt-1.5 w-3 h-3 rounded-full bg-stone-800 flex-shrink-0" />
                   <div>
-                    <p className="text-sm font-semibold text-stone-800">Germany — ≈20 interviews</p>
-                    <p className="text-xs text-stone-500">Concentrated in Berlin &amp; Munich</p>
+                    <p className="text-sm font-semibold text-stone-800">Germany, 20+ interviews</p>
+                    <p className="text-xs text-stone-500">Concentrated in Berlin and Munich</p>
                   </div>
+                </div>
+              </div>
+
+              <div className="bg-[#faf9f6] rounded-2xl p-6 border border-stone-100">
+                <p className="text-xs uppercase tracking-widest text-stone-400 mb-4 font-sans">Partner Networks</p>
+                <div className="flex flex-wrap gap-4 items-center">
+                  {PARTNER_LOGOS.map(({ src, alt }) => (
+                    <Image
+                      key={alt}
+                      src={src}
+                      alt={alt}
+                      width={100}
+                      height={36}
+                      className="object-contain max-h-8 w-auto"
+                    />
+                  ))}
                 </div>
               </div>
             </div>
@@ -414,29 +450,43 @@ export default function Home() {
       {/* Contact */}
       <section id="contact" className="py-24 px-6 bg-stone-900 text-white">
         <div className="max-w-5xl mx-auto">
-          <h2
-            className="text-3xl text-white mb-4"
-            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-          >
-            Get in Touch
-          </h2>
-          <p className="text-stone-400 font-sans text-sm mb-8 max-w-md">
-            Interested in my research, collaboration, or speaking? I&apos;m happy to connect
-            with fellow researchers, founders, and investors.
-          </p>
-          <a
-            href="mailto:lara.hitgen@b-tu.de"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-stone-900 text-sm font-semibold rounded-full hover:bg-stone-100 transition-colors font-sans"
-          >
-            lara.hitgen@b-tu.de
-          </a>
+          <div className="flex flex-col md:flex-row gap-12 items-center">
+            <div className="flex-shrink-0">
+              <Image
+                src="/profile.png"
+                alt="Lara Hitgen"
+                width={200}
+                height={240}
+                className="rounded-2xl object-cover object-top shadow-lg"
+                style={{ aspectRatio: "4/5" }}
+              />
+            </div>
+            <div>
+              <h2
+                className="text-3xl text-white mb-4"
+                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              >
+                Get in Touch
+              </h2>
+              <p className="text-stone-400 font-sans text-sm mb-8 max-w-md leading-relaxed">
+                Interested in the research, open to collaboration, or want to talk about
+                entrepreneurial ecosystems? Feel free to reach out.
+              </p>
+              <a
+                href="mailto:lara.hitgen@b-tu.de"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-stone-900 text-sm font-semibold rounded-full hover:bg-stone-100 transition-colors font-sans"
+              >
+                lara.hitgen@b-tu.de
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-6 px-6 bg-stone-950 text-stone-500">
         <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-4 text-xs font-sans">
-          <span>© {new Date().getFullYear()} Lara Hitgen</span>
+          <span>2025 Lara Hitgen</span>
           <span>BTU Cottbus-Senftenberg · Chair of Investment and Financing</span>
         </div>
       </footer>
