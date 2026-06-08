@@ -37,7 +37,7 @@ function UniCard({
     <div
       className={`rounded-2xl p-6 border font-sans flex flex-col gap-3 ${
         highlight
-          ? "bg-stone-900 text-white border-stone-900"
+          ? "bg-white text-stone-700 border-stone-900 border-2"
           : "bg-white text-stone-700 border-stone-100"
       }`}
     >
@@ -48,24 +48,24 @@ function UniCard({
             alt={name}
             width={120}
             height={40}
-            className={`object-contain object-left max-h-9 w-auto ${highlight ? "brightness-0 invert" : ""}`}
+            className="object-contain object-left max-h-9 w-auto"
           />
         ) : (
-          <span className={`text-xs font-semibold uppercase tracking-wider ${highlight ? "text-stone-300" : "text-stone-400"}`}>
+          <span className="text-xs font-semibold uppercase tracking-wider text-stone-400">
             {name}
           </span>
         )}
       </div>
       <div>
-        <p className={`text-xs uppercase tracking-widest mb-1 ${highlight ? "text-stone-400" : "text-stone-400"}`}>
+        <p className="text-xs uppercase tracking-widest mb-1 text-stone-400">
           {stage} · {period}
         </p>
-        <p className={`text-sm font-semibold leading-snug ${highlight ? "text-white" : "text-stone-800"}`}>
+        <p className="text-sm font-semibold leading-snug text-stone-800">
           {degree}
         </p>
-        <p className={`text-xs mt-0.5 ${highlight ? "text-stone-400" : "text-stone-400"}`}>{name}</p>
+        <p className="text-xs mt-0.5 text-stone-400">{name}</p>
         {note && (
-          <p className={`text-xs mt-1 ${highlight ? "text-stone-300" : "text-stone-500"}`}>{note}</p>
+          <p className="text-xs mt-1 text-stone-500">{note}</p>
         )}
       </div>
     </div>
@@ -78,23 +78,22 @@ export default function Home() {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#faf9f6]/90 backdrop-blur-sm border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/profile.png"
-              alt="Lara Hitgen"
-              width={32}
-              height={32}
-              className="rounded-full object-cover object-top"
-            />
-            <span className="text-sm font-medium tracking-wide text-stone-600 font-sans">
-              Lara Hitgen
-            </span>
-          </div>
+          <span className="text-sm font-medium tracking-wide text-stone-600 font-sans">
+            Lara Hitgen
+          </span>
           <div className="flex gap-6 text-sm text-stone-500 font-sans">
             <a href="#about" className="hover:text-stone-900 transition-colors">About</a>
             <a href="#publications" className="hover:text-stone-900 transition-colors">Research</a>
             <a href="#universities" className="hover:text-stone-900 transition-colors">Affiliations</a>
             <a href="#contact" className="hover:text-stone-900 transition-colors">Contact</a>
+            <a
+              href="https://www.linkedin.com/in/lara-h-btu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-stone-900 transition-colors"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
       </nav>
@@ -350,31 +349,32 @@ export default function Home() {
               degree="B.Sc. Management and Entrepreneurship"
               name="Leuphana University Luneburg"
               logoKey="leuphana"
-              period="2018 to 2021"
+              period="2018 to 2022"
             />
             <UniCard
               stage="Master"
               degree="M.Sc. Entrepreneurship"
               name="WHU Otto Beisheim School of Management"
               logoKey="whu"
-              period="2021 to 2023"
+              period="2022 to 2024"
+              note="Grade: 1.2"
             />
             <UniCard
               stage="PhD"
-              degree="Dr. rer. oec. (ongoing)"
+              degree="Doctoral Candidate, Entrepreneurial Finance"
               name="BTU Cottbus-Senftenberg"
               logoKey="btu"
-              period="2023 to present"
+              period="Sep 2025 to present"
               note="Chair of Investment and Financing · Supervisor: Prof. Dr. Katharina Scheidgen"
               highlight
             />
             <UniCard
               stage="Visiting PhD"
-              degree="International Research Stay"
-              name="NOVA University Lisbon"
+              degree="Visiting PhD Researcher"
+              name="NOVA School of Business and Economics"
               logoKey="nova"
-              period="2024"
-              note="Fieldwork project in Portugal"
+              period="Feb 2026 to present"
+              note="Lisbon · On-site fieldwork"
             />
           </div>
         </div>
@@ -472,12 +472,22 @@ export default function Home() {
                 Interested in the research, open to collaboration, or want to talk about
                 entrepreneurial ecosystems? Feel free to reach out.
               </p>
-              <a
-                href="mailto:lara.hitgen@b-tu.de"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-stone-900 text-sm font-semibold rounded-full hover:bg-stone-100 transition-colors font-sans"
-              >
-                lara.hitgen@b-tu.de
-              </a>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="mailto:lara.hitgen@b-tu.de"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-stone-900 text-sm font-semibold rounded-full hover:bg-stone-100 transition-colors font-sans"
+                >
+                  lara.hitgen@b-tu.de
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/lara-h-btu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-stone-800 text-white text-sm font-semibold rounded-full hover:bg-stone-700 transition-colors font-sans"
+                >
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </div>
         </div>
